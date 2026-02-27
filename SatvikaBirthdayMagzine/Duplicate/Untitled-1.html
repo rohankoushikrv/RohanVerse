@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SatvikaISBest| Birthday Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #d4a373;
+            --text-color: #4a4a4a;
+            --page-bg: #fffdfd;
+            --dark: #1a1a1a;
+            --book-w: 380px;
+            --book-h: 550px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 100%);
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(255,182,193,0.3) 0%, transparent 20%),
+                        radial-gradient(circle at 80% 70%, rgba(255,218,185,0.3) 0%, transparent 20%);
+            animation: moveBg 10s ease-infinite alternate;
+        }
+
+        @keyframes moveBg { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+        /* Centered Book Container */
+        .book-container {
+            width: var(--book-w);
+            height: var(--book-h);
+            position: relative;
+            perspective: 1500px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+        }
+
+        .page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 35px;
+            box-sizing: border-box;
+            background: var(--page-bg);
+            box-shadow: inset 5px 0 15px rgba(0,0,0,0.05), 5px 5px 15px rgba(0,0,0,0.1);
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Spine Shadow */
+        .front::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; width: 10px; height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            background: #fdfdfd;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* Typography & Visuals */
+        h1 { font-family: 'Great Vibes', cursive; color: var(--primary-pink); font-size: 2.8rem; margin: 10px 0; }
+        h2 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        p { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; line-height: 1.6; color: var(--text-color); }
+        .img-placeholder { width: 100%; height: 55%; object-fit: cover; border-radius: 4px; background: #f0f0f0; margin-bottom: 15px; }
+        .page-num { position: absolute; bottom: 15px; font-size: 0.7rem; color: #bbb; right: 20px; }
+        .centered { text-align: center; justify-content: center; align-items: center; }
+
+        /* Responsive Logic */
+        @media (max-width: 500px) {
+            body { overflow-y: auto; padding: 40px 0; display: block; }
+            .background-animation { display: none; }
+            .book-container { 
+                width: 90%; 
+                height: auto; 
+                margin: 0 auto; 
+                perspective: none; 
+            }
+            .book { display: flex; flex-direction: column; gap: 20px; }
+            .page { 
+                position: relative; 
+                transform: none !important; 
+                height: auto; 
+                z-index: 1 !important;
+            }
+            .front, .back { 
+                position: relative; 
+                transform: none !important; 
+                backface-visibility: visible; 
+                border-radius: 10px; 
+                margin-bottom: 10px;
+                min-height: 500px;
+            }
+            .page-num { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+
+    <div class="book-container">
+        <div class="book" id="magazine">
+            
+            <div class="page" onclick="flipPage(this)">
+                <div class="front centered" style="background: #fffafa;">
+                    <p style="letter-spacing: 4px; text-transform: uppercase; font-size: 0.6rem;">Special Edition</p>
+                    <h1>Sai Satvika</h1>
+                    <img src="Page1.jpg" class="img-placeholder" style="height: 65%;">
+                    <p><b>Celebrating You</b></p>
+                    <p style="font-size: 0.7rem; opacity: 0.6;">2026 Birthday Vol.</p>
+                </div>
+                <div class="back">
+                    <h2>Editor's Note</h2>
+                    <p>I created this because words alone aren't enough. Within these pages is a glimpse into why you are the most incredible person I've ever met.</p>
+                    <img src="https://via.placeholder.com/300x200?text=Our+Story" class="img-placeholder">
+                    <span class="page-num">02</span>
+                </div>
+            </div>
+
+            <div class="page" onclick="flipPage(this)">
+                <div class="front">
+                    <h2>Golden Hours</h2>
+                    <img src="https://via.placeholder.com/300x400?text=Memory+1" class="img-placeholder">
+                    <p>The best moments aren't the big ones, but the quiet ones we share together.</p>
+                    <span class="page-num">03</span>
+                </div>
+                <div class="back">
+                    <h2>The Little Things</h2>
+                    <p>Your laugh, the way you make me feel at home, and the light you bring to every room.</p>
+                    <img src="https://via.placeholder.com/300x300?text=Candid" class="img-placeholder">
+                    <span class="page-num">04</span>
+                </div>
+            </div>
+
+            <div class="page" onclick="flipPage(this)">
+                <div class="front">
+                    <h2>Style & Grace</h2>
+                    <img src="https://via.placeholder.com/300x400?text=Style+Shot" class="img-placeholder">
+                    <p>A true icon. Your elegance is natural, but your soul is what's truly stunning.</p>
+                    <span class="page-num">05</span>
+                </div>
+                <div class="back">
+                    <h2>Travel Diaries</h2>
+                    <p>Every mile traveled with you is my favorite mile. Where to next?</p>
+                    <img src="https://via.placeholder.com/300x200?text=Destination" class="img-placeholder">
+                    <span class="page-num">06</span>
+                </div>
+            </div>
+
+            <div class="page" onclick="flipPage(this)">
+                <div class="front">
+                    <h2>Muse of my Life</h2>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-top: 30px; border-left: 2px solid var(--primary-pink); padding-left: 15px;">
+                        "You are my today and all of my tomorrows."
+                    </p>
+                    <span class="page-num">07</span>
+                </div>
+                <div class="back">
+                    <h2>The Playlist</h2>
+                    <p>Scan the back for the music that reminds me of you. Our own private soundtrack.</p>
+                    <img src="https://via.placeholder.com/300x200?text=Music" class="img-placeholder">
+                    <span class="page-num">08</span>
+                </div>
+            </div>
+
+            <div class="page" onclick="flipPage(this)">
+                <div class="front">
+                    <h2>Next Chapters</h2>
+                    <img src="https://via.placeholder.com/300x400?text=Upcoming" class="img-placeholder">
+                    <p>I'm so excited to see you conquer the world this year. I'm your #1 fan.</p>
+                    <span class="page-num">09</span>
+                </div>
+                <div class="back">
+                    <h2>Always Yours</h2>
+                    <p>You are loved. You are valued. You are everything.</p>
+                    <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; text-align: center; margin-top: 20px;">Love Always, [Me]</div>
+                    <span class="page-num">10</span>
+                </div>
+            </div>
+
+            <div class="page" onclick="flipPage(this)">
+                <div class="front centered">
+                    <h1>Forever</h1>
+                    <p>Turn for back cover</p>
+                    <span class="page-num">11</span>
+                </div>
+                <div class="back centered" style="background: var(--dark); color: white;">
+                    <h2 style="color: var(--primary-pink); border-bottom: 1px solid #333;">THE BACK COVER</h2>
+                    <div style="width: 90px; height: 90px; border: 1px solid #444; margin: 20px auto; padding: 5px; background: white;">
+                        <img src="https://via.placeholder.com/80?text=QR" style="width:100%">
+                    </div>
+                    <p style="color: #888; font-size: 0.6rem; letter-spacing: 1px;">SCAN for Surprice</p>
+                    <h1 style="font-size: 1.2rem; margin-top: 40px;">Happy Birthday!</h1>
+                    <p style="font-size: 0.5rem; letter-spacing: 2px; opacity: 0.5;">&copy; 2026 Rohan Koushik Gajulapale. <br> Made with love❤️</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function flipPage(page) {
+            if (window.innerWidth > 500) {
+                page.classList.toggle('flipped');
+                const allPages = document.querySelectorAll('.page');
+                const index = Array.from(allPages).indexOf(page);
+                
+                if (page.classList.contains('flipped')) {
+                    setTimeout(() => { page.style.zIndex = index + 1; }, 600);
+                } else {
+                    setTimeout(() => { page.style.zIndex = allPages.length - index; }, 600);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth > 500) {
+                const pages = document.querySelectorAll('.page');
+                pages.forEach((page, index) => {
+                    page.style.zIndex = pages.length - index;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SatvikaISBest | Birthday Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #d4a373;
+            --text-color: #4a4a4a;
+            --page-bg: #fffdfd;
+            --dark: #1a1a1a;
+            --book-w: 400px; /* Slightly wider for better image resolution */
+            --book-h: 580px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 100%);
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+        }
+
+        /* High-Res Image Handling */
+        .img-display {
+            width: 100%;
+            height: 60%;
+            /* 'contain' ensures the full resolution and aspect ratio are kept without cropping */
+            object-fit: contain; 
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background: transparent;
+            /* Prevents browser blurring during 3D transforms */
+            image-rendering: -webkit-optimize-contrast;
+            transform: translateZ(0); 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+
+        .book-container {
+            width: var(--book-w);
+            height: var(--book-h);
+            position: relative;
+            perspective: 2000px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+        }
+
+        .page.flipped { transform: rotateY(-180deg); }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 35px;
+            box-sizing: border-box;
+            background: var(--page-bg);
+            box-shadow: inset 5px 0 15px rgba(0,0,0,0.05), 5px 5px 15px rgba(0,0,0,0.1);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            background: #fdfdfd;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* Typography */
+        h1 { font-family: 'Great Vibes', cursive; color: var(--primary-pink); font-size: 2.8rem; margin: 10px 0; text-align: center; }
+        h2 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; font-size: 1.1rem; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        p { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; line-height: 1.6; color: var(--text-color); }
+        .page-num { position: absolute; bottom: 15px; font-size: 0.7rem; color: #bbb; right: 20px; }
+        .centered { text-align: center; justify-content: center; align-items: center; }
+
+        @media (max-width: 500px) {
+            body { overflow-y: auto; padding: 40px 0; display: block; }
+            .book-container { width: 92%; height: auto; margin: 0 auto; perspective: none; }
+            .book { display: flex; flex-direction: column; gap: 25px; }
+            .page { position: relative; transform: none !important; height: auto; z-index: 1 !important; }
+            .front, .back { 
+                position: relative; transform: none !important; backface-visibility: visible; 
+                border-radius: 10px; min-height: 550px; margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+        <div class="book" id="magazine">
+            
+            <div class="page">
+                <div class="front centered">
+                    <p style="letter-spacing: 4px; text-transform: uppercase; font-size: 0.6rem;">Special Edition</p>
+                    <h1>The girl behind the story</h1>
+                    <img src="Page1.jpg" class="img-display" style="height: 70%;">
+                    <p><b>Celebrating You</b></p>
+                    <p style="font-size: 0.7rem; opacity: 0.6;">2026 Birthday Vol.</p>
+                </div>
+                <div class="back">
+                    <h2>Editor's Note</h2>
+                    <p>I created this because words alone aren't enough. Within these pages is a glimpse into why you are the most incredible person I've ever met.</p>
+                    <img src="page2.jpg" class="img-display">
+                    <span class="page-num">02</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Golden Hours</h2>
+                    <img src="Page3.jpg" class="img-display">
+                    <p>The best moments aren't the big ones, but the quiet ones we share together.</p>
+                    <span class="page-num">03</span>
+                </div>
+                <div class="back">
+                    <h2>The Little Things</h2>
+                    <p>Your laugh and the way you make me feel at my 2021 Birthday.</p>
+                    <img src="Page4.jpg" class="img-display">
+                    <span class="page-num">04</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Style & Grace</h2>
+                    <img src="Page5.jpg" class="img-display">
+                    <p>A true icon. Your elegance is natural, but your soul is what's truly stunning.</p>
+                    <span class="page-num">05</span>
+                </div>
+                <div class="back">
+                    <h2>Travel Diaries</h2>
+                    <p>Every mile traveled with you is my favorite mile. Where to next?</p>
+                    <img src="Page6.jpg" class="img-display">
+                    <span class="page-num">06</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Her People</h2>
+                    <img src="Page7.png" class="img-display">
+                    <p>The sparkle in your eyes is my favorite view.</p>
+                    <span class="page-num">07</span>
+                </div>
+                <div class="back">
+                    <h2>Unforgettable</h2>
+                    <img src="page8.jpg" class="img-display">
+                    <p>Memories that stay in the heart forever.</p>
+                    <span class="page-num">08</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Strength & Love</h2>
+                    <img src="Page9.jpg" class="img-display">
+                    <p>You inspire me every single day with your kindness.</p>
+                    <span class="page-num">09</span>
+                </div>
+                <div class="back">
+                    <h2>Radiance</h2>
+                    <img src="Page10.jpg" class="img-display">
+                    <p>You light up everything you walk into.</p>
+                    <span class="page-num">10</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Muse of my Life</h2>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-top: 30px; border-left: 2px solid var(--primary-pink); padding-left: 15px;">
+                        "You are my today and all of my tomorrows."
+                    </p>
+                    <img src="Page11.jpg" class="img-display" style="margin-top:20px;">
+                    <span class="page-num">11</span>
+                </div>
+                <div class="back">
+                    <h2>From student to doctor</h2>
+                    <p>A milestone of pride: her medical graduation.</p>
+                    <img src="Page12.jpg" class="img-display">
+                    <span class="page-num">12</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front">
+                    <h2>Next Chapters</h2>
+                    <img src="Page13.png" class="img-display">
+                    <p>I'm so excited to see you conquer the world this year. I'm your #1 fan.</p>
+                    <span class="page-num">13</span>
+                </div>
+                <div class="back">
+                    <h2>Always Yours</h2>
+                    <p>You are loved. You are valued. You are everything.</p>
+                    <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; text-align: center; margin-top: 20px;">Love Always, Rohan</div>
+                    <span class="page-num">14</span>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="front centered">
+                    <h7>Happy Birthday to my Dharanee Thejam.
+                        <p>Neeli Meghamulalo Dharanee Thejam,</p></h7>
+                        <h7><p>Nayanaantharangamulalo Vanadhee Naadham...</p></h7>
+                        <h7><p>Just as these lines describe a divine beauty, your presence is the light and the depth in my life. Have a wonderful year ahead!</p></h7>
+                    <p>Turn for back cover</p>
+                    <span class="page-num">15</span>
+                </div>
+                <div class="back centered" style="background: var(--dark); color: white;">
+                    <h2 style="color: var(--primary-pink); border-bottom: 1px solid #333;">THE BACK COVER</h2>
+                    <div style="width: 100px; height: 100px; border: 1px solid #444; margin: 20px auto; padding: 5px; background: white;">
+                        <img src="qr-code.png" style="width:100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <p style="color: #888; font-size: 0.6rem; letter-spacing: 1px;">SCAN for Surprise</p>
+                    <h1 style="font-size: 1.2rem; margin-top: 40px;">Happy Birthday!</h1>
+                   <!-- <p style="color: #888; font-size: 0.5rem; letter-spacing: 2px; opacity: 0.5;"><b>&copy; 2026 Rohan Koushik Gajulapale. Made with love</b> ❤️</p>-->
+                    <p style="color: #888; font-size: 0.5rem; letter-spacing: 2px; opacity: 0.5;">RohanGPT · Powered by Gemini · Designed & Crafted by Rohan Koushik Gajulapalle. Made with love ❤️·</p><p> © 2026 RohanVerse All rights reserved</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const magazine = document.getElementById('magazine');
+        const pages = document.querySelectorAll('.page');
+
+        pages.forEach((page, index) => {
+            page.style.zIndex = pages.length - index;
+            page.addEventListener('click', () => {
+                if (window.innerWidth > 500) {
+                    page.classList.toggle('flipped');
+                    if (page.classList.contains('flipped')) {
+                        setTimeout(() => { page.style.zIndex = index + 1; }, 600);
+                    } else {
+                        setTimeout(() => { page.style.zIndex = pages.length - index; }, 600);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

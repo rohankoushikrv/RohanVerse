@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Magazine | For Her</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fff5f5;
+            --primary-pink: #d4a373; /* Sophisticated Gold-Pink */
+            --text-color: #4a4a4a;
+            --page-bg: #fffdfd;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffe0b2 100%);
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animated Background Bokeh */
+        .background-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(255,182,193,0.4) 0%, transparent 20%),
+                        radial-gradient(circle at 80% 70%, rgba(255,218,185,0.4) 0%, transparent 20%);
+            animation: moveBg 10s ease-infinite alternate;
+        }
+
+        @keyframes moveBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Book Styling */
+        .book {
+            width: 400px;
+            height: 550px;
+            position: relative;
+            transition: transform 0.5s;
+            perspective: 1500px;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--page-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            background: #fafafa;
+        }
+
+        /* Content Styling */
+        h1 { font-family: 'Great Vibes', cursive; color: var(--primary-pink); font-size: 3rem; margin: 10px 0; }
+        p { line-height: 1.6; color: var(--text-color); }
+        
+        .cover-img { width: 100%; height: 70%; object-fit: cover; border-radius: 5px; margin-bottom: 20px; }
+        .page-num { position: absolute; bottom: 20px; right: 20px; font-size: 0.8rem; }
+
+        /* Helpers */
+        .centered { text-align: center; justify-content: center; align-items: center; }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+
+    <div class="book" id="magazine">
+        
+        <div class="page" onclick="flipPage(this)">
+            <div class="front centered" style="background: #fffafa;">
+                <p style="letter-spacing: 5px; text-transform: uppercase;">The Special Edition</p>
+                <h1>Muse</h1>
+                <img src="https://via.placeholder.com/400x600?text=Cover+Photo" alt="Cover" class="cover-img">
+                <p><b>Celebrating You</b></p>
+                <p style="font-size: 0.9rem;">February 2024 | Vol. 1</p>
+            </div>
+            <div class="back">
+                <h3>The Editor's Note</h3>
+                <p>Place a sweet message here about why you created this magazine. Every page from here tells our story.</p>
+                <img src="https://via.placeholder.com/300x200?text=Small+Memory" style="width: 100%; margin-top: 20px;">
+            </div>
+        </div>
+
+        <div class="page" onclick="flipPage(this)">
+            <div class="front">
+                <h2>Our Favorite Moments</h2>
+                <img src="https://via.placeholder.com/300x400?text=Us+Together" class="cover-img" style="height: 50%;">
+                <p>It’s the little things that matter most. From late-night talks to morning coffees...</p>
+                <span class="page-num">1</span>
+            </div>
+            <div class="back">
+                <h2>The Little Things</h2>
+                <p>List her favorite things or small inside jokes here.</p>
+                <span class="page-num">2</span>
+            </div>
+        </div>
+
+        <div class="page" onclick="flipPage(this)">
+            <div class="front">
+                <h2>Style & Grace</h2>
+                <img src="https://via.placeholder.com/300x400?text=Beautiful+Shot" class="cover-img">
+                <span class="page-num">3</span>
+            </div>
+            <div class="back">
+                <h2>Future Together</h2>
+                <p>Writing the next chapters with you is my favorite thing to do.</p>
+                <span class="page-num">4</span>
+            </div>
+        </div>
+
+        <div class="page" onclick="flipPage(this)">
+            <div class="front centered">
+                <h1>Always & Forever</h1>
+                <p>Turn the page for the end...</p>
+                <span class="page-num">5</span>
+            </div>
+            <div class="back centered" style="background: #fdf2f2;">
+                <h1>Happy Birthday!</h1>
+                <p>To my favorite person in the world.</p>
+                <div style="font-size: 2rem;">❤️</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function flipPage(page) {
+            page.classList.toggle('flipped');
+            
+            // Adjust z-index so layers work correctly
+            if (page.classList.contains('flipped')) {
+                setTimeout(() => {
+                    page.style.zIndex = 1;
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    page.style.zIndex = 10;
+                }, 500);
+            }
+        }
+
+        // Initialize z-indices
+        const pages = document.querySelectorAll('.page');
+        pages.forEach((page, index) => {
+            page.style.zIndex = pages.length - index;
+        });
+    </script>
+</body>
+</html>
