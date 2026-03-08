@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Rollback: A Sincere Apology</title>
+    <style>
+        :root {
+            --derm-pink: #fce4ec;
+            --deep-rose: #f06292;
+            --clinical-white: #ffffff;
+            --text-gray: #444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--derm-pink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Added for mobile spacing */
+            color: var(--text-gray);
+            overflow-x: hidden; /* Prevents horizontal scroll from animations */
+            position: relative;
+        }
+
+        /* --- Background Animation --- */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(240, 98, 146, 0.2); /* Transparent Love Symbol */
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+        }
+
+        @keyframes animate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+
+        /* --- Mobile Responsive Card --- */
+        .card {
+            background: var(--clinical-white);
+            padding: 30px; /* Reduced for mobile */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border-top: 8px solid var(--deep-rose);
+            box-sizing: border-box; /* Ensures padding doesn't break width */
+            z-index: 1;
+        }
+
+        h1 { color: var(--deep-rose); margin-bottom: 10px; font-size: 1.8rem; }
+        
+        .status-badge {
+            background: #ffebee;
+            color: #c62828;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        p { line-height: 1.5; font-size: 1rem; }
+
+        .regret-list {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 5px; /* Adjusted for smaller screens */
+            list-style-type: none;
+        }
+
+        .regret-list li { 
+            margin-bottom: 15px; 
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f9f9f9;
+            padding-bottom: 8px;
+        }
+
+        .btn {
+            background: var(--deep-rose);
+            color: white !important;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+
+        .footer { font-size: 0.75rem; color: #888; margin-top: 25px; }
+
+        /* Tablet/Mobile Adjustments */
+        @media (max-width: 480px) {
+            .card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            p { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Background Hearts -->
+<div class="bg-hearts">
+    <span class="heart" style="left: 25%; width: 80px; height: 80px; animation-delay: 0s;"></span>
+    <span class="heart" style="left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s;"></span>
+    <span class="heart" style="left: 70%; width: 20px; height: 20px; animation-delay: 4s;"></span>
+    <span class="heart" style="left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s;"></span>
+    <span class="heart" style="left: 65%; width: 20px; height: 20px; animation-delay: 0s;"></span>
+    <span class="heart" style="left: 35%; width: 150px; height: 150px; animation-delay: 7s;"></span>
+    <span class="heart" style="left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s;"></span>
+    <span class="heart" style="left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s;"></span>
+</div>
+
+<div class="card">
+    <div class="status-badge">ERROR 403: Relationship Blocked</div>
+    <h1>I’m Truly Sorry</h1>
+    
+    <p>I let my <strong>Developer Logic</strong> override my <strong>Human Heart</strong> yesterday. I messed up big time.</p>
+    
+    <ul class="regret-list">
+        <li>🌡️ <strong>The Environment:</strong> That restaurant had no AC and I was frustrated. I let the heat get to my head and took it out on you.</li>
+        <li>💔 <strong>The Mixed Feelings:</strong> I saw you leaving and I panicked. I was just scared of losing your time and I made everything worse.</li>
+        <li>📉 <strong>Deep Regret:</strong> I am sitting here with 100% regret. You are a 1st-year PG; I should be your cooling system, not your heater.</li>
+        <li>❌ <strong>The Comment:</strong> Saying you aren't beautiful without a bindi was the stupidest thing I've ever said. You are a brilliant <strong>Derm PG</strong> and beautiful in every state.</li>
+        <li>❌ <strong>The Walk:</strong> I should have walked every meter with you regardless of the traffic. I'm sorry for being selfish.</li>
+    </ul>
+
+    <p>I’ve been researching the <strong>best OLED and Retina screens</strong> for your clinic work because I want you to be the best Doctor... but first, I need to be a better partner.</p>
+
+    <a href="#" class="btn">Unblock My Heart?</a>
+
+    <div class="footer">
+        System Maintenance requested by Rohan.<br>
+        Current Status: <strong>100% Regret.</strong>
+    </div>
+</div>
+
+</body>
+</html>
