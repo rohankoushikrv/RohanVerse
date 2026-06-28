@@ -1,467 +1,144 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Health Box | Fresh Campus Deliveries</title>
-    <!-- Google Fonts for Zomato/Swiggy style sleek typography -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Okra:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Vector Icons -->
-    <script src="https://unpkg.com"></script>
-    
-    <style>
-        /* Modern CSS Design Tokens & Variable Architecture */
-        :root {
-            --zomato-red: #EF4F5F;
-            --swiggy-orange: #FC8019;
-            --brand-green: #25C55E;
-            --text-main: #1C1C1C;
-            --text-muted: #696969;
-            --bg-light: #F8F8F8;
-            --border-line: #E8E8E8;
-            --shadow-sm: 0 2px 8px rgba(28, 28, 28, 0.08);
-            --shadow-md: 0 4px 18px rgba(28, 28, 28, 0.12);
-            --font-primary: 'Okra', 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <title>The Health Box</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #EF4F5F;
+      --secondary-orange: #FC8019;
+      --green: #25C55E;
+      --dark-text: #1C1C1C;
+      --light-bg: #F8F8F8;
+    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:'Poppins', sans-serif; color:var(--dark-text); background:var(--light-bg);}
+    header {
+      position:sticky; top:0; background:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 4px rgba(0,0,0,0.1); z-index:100;
+    }
+    header h1 {color:var(--primary-red); font-size:1.5rem;}
+    .location-badge {
+      background:var(--light-bg); padding:0.5rem 1rem; border-radius:50px; font-size:0.9rem; font-weight:600;
+    }
+    .tabs {display:flex; justify-content:center; gap:1rem; margin:1rem 0;}
+    .tab {padding:0.5rem 1rem; border-radius:50px; background:#fff; cursor:pointer; font-weight:600; transition:0.3s;}
+    .tab.active {background:var(--primary-red); color:#fff;}
+    .grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; padding:1rem 2rem;}
+    .card {background:#fff; border-radius:8px; padding:1rem; box-shadow:0 2px 6px rgba(0,0,0,0.1); transition:0.3s;}
+    .card:hover {box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+    .card h3 {margin-bottom:0.5rem; color:var(--primary-red);}
+    .price {font-weight:700; color:var(--secondary-orange);}
+    .veg-indicator {
+      width:16px; height:16px; border:2px solid var(--green); display:flex; align-items:center; justify-content:center; border-radius:2px; margin-right:0.5rem;
+    }
+    .veg-indicator span {width:8px; height:8px; background:var(--green); border-radius:50%;}
+    .meta {background:#e0e0e0; font-size:0.8rem; padding:0.2rem 0.5rem; border-radius:4px; display:inline-block; margin-top:0.5rem;}
+    .calculator {display:flex; flex-wrap:wrap; gap:2rem; padding:2rem;}
+    .calc-left, .calc-right {flex:1; min-width:280px;}
+    select {width:100%; padding:0.5rem; margin-bottom:1rem; border-radius:4px; border:1px solid #ccc;}
+    .receipt {background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+    .receipt-row {display:flex; justify-content:space-between; margin-bottom:0.5rem;}
+    .checkout {display:block; text-align:center; margin-top:1rem; background:var(--secondary-orange); color:#fff; padding:0.75rem; border-radius:50px; text-decoration:none; font-weight:600;}
+    footer {background:#1C1C1C; color:#fff; text-align:center; padding:1rem; font-size:0.8rem; margin-top:2rem;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Health Box</h1>
+    <div class="location-badge">🟢 TRR Medical College Exclusive</div>
+  </header>
 
-        /* Global Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-primary);
-            -webkit-font-smoothing: antialiased;
-        }
+  <div class="tabs">
+    <div class="tab active" data-filter="all">All Items</div>
+    <div class="tab" data-filter="deluxe">Deluxe Trays</div>
+    <div class="tab" data-filter="budget">Budget Bowls</div>
+  </div>
 
-        html {
-            scroll-behavior: smooth;
-        }
+  <div class="grid">
+    <div class="card" data-category="budget">
+      <h3>Standard Budget Box</h3>
+      <p class="price">₹60/day</p>
+      <p><div class="veg-indicator"><span></span></div> Watermelon, Papaya, Seedless Grapes</p>
+      <p>Targeted at MBBS Hostellers</p>
+      <span class="meta">Delivery: 8 AM Daily</span>
+    </div>
+    <div class="card" data-category="deluxe">
+      <h3>Deluxe Segregated Tray</h3>
+      <p class="price">₹80/day</p>
+      <p><div class="veg-indicator"><span></span></div> Pomegranate, Kiwi, Apple, Soaked Almonds/Walnuts</p>
+      <p>Targeted at PGs and Faculty</p>
+      <span class="meta">Delivery: 8 AM Daily</span>
+    </div>
+  </div>
 
-        body {
-            background-color: #FFFFFF;
-            color: var(--text-main);
-            line-height: 1.5;
-        }
+  <section class="calculator">
+    <div class="calc-left">
+      <h3>Choose Your Plan</h3>
+      <select id="tier">
+        <option value="budget">Standard Budget Box</option>
+        <option value="deluxe">Deluxe Segregated Tray</option>
+      </select>
+      <select id="frequency">
+        <option value="3">3 Days</option>
+        <option value="6">6 Days</option>
+      </select>
+    </div>
+    <div class="calc-right">
+      <h3>Weekly Receipt</h3>
+      <div class="receipt">
+        <div class="receipt-row"><span>Base Plan Rate</span><span id="baseRate">₹60</span></div>
+        <div class="receipt-row"><span>Free Campus Delivery</span><span>₹0</span></div>
+        <div class="receipt-row"><strong>Prepaid Weekly Total</strong><strong id="total">₹180</strong></div>
+        <a id="checkout" class="checkout" href="https://forms.gle/">Proceed to Google Intake Form</a>
+      </div>
+    </div>
+  </section>
 
-        /* Zomato/Swiggy Sticky Sticky Navbar Header */
-        .app-header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: #FFFFFF;
-            border-bottom: 1px solid var(--border-line);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-        }
+  <footer>
+    © 2026 The Health Box • Inole, Telangana<br>
+    FSSAI REGISTERED MOBILE FOOD VENDING UNIT • PRESUMPTIVE TAXATION UNDER SEC 44AD
+  </footer>
 
-        .nav-container {
-            max-w: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 72px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const cards = document.querySelectorAll('.card');
+    tabs.forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        tabs.forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.filter;
+        cards.forEach(card=>{
+          if(filter==='all' || card.dataset.category===filter){
+            card.style.display='block';
+          } else {
+            card.style.display='none';
+          }
+        });
+      });
+    });
 
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            text-decoration: none;
-        }
+    const tierSelect = document.getElementById('tier');
+    const freqSelect = document.getElementById('frequency');
+    const baseRateEl = document.getElementById('baseRate');
+    const totalEl = document.getElementById('total');
+    const checkoutEl = document.getElementById('checkout');
 
-        .brand-logo span {
-            color: var(--zomato-red);
-        }
+    function updateReceipt(){
+      const tier = tierSelect.value;
+      const freq = parseInt(freqSelect.value,10);
+      let rate = tier==='budget'?60:80;
+      baseRateEl.textContent = `₹${rate}`;
+      const total = rate*freq;
+      totalEl.textContent = `₹${total}`;
+      checkoutEl.href = `https://forms.gle/?tier=${tier}&freq=${freq}`;
+    }
 
-        .campus-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: rgba(239, 79, 95, 0.08);
-            color: var(--zomato-red);
-            font-size: 12px;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid rgba(239, 79, 95, 0.15);
-        }
-
-        /* Swiggy-Style Breadcrumb & Tab Row Filters */
-        .filter-section {
-            max-width: 1200px;
-            margin: 24px auto 0 auto;
-            padding: 0 24px;
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-        }
-
-        .filter-pill {
-            background: #FFFFFF;
-            border: 1px solid var(--border-line);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .filter-pill:hover {
-            background-color: var(--bg-light);
-            color: var(--text-main);
-        }
-
-        .filter-pill.active {
-            background-color: rgba(239, 79, 95, 0.06);
-            border-color: var(--zomato-red);
-            color: var(--zomato-red);
-            font-weight: 600;
-        }
-
-        /* Zomato Food Item Grid System Layout */
-        .menu-grid-section {
-            max-width: 1200px;
-            margin: 32px auto 64px auto;
-            padding: 0 24px;
-        }
-
-        .section-title {
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 24px;
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 32px;
-        }
-
-        /* Individual Premium Food Card Layout */
-        .food-card {
-            background: #FFFFFF;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
-            border: 1px solid transparent;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .food-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--border-line);
-            transform: translateY(-4px);
-        }
-
-        .image-frame {
-            width: 100%;
-            height: 240px;
-            background: linear-gradient(135deg, #FFF5F5 0%, #FFF0F2 100%);
-            border-radius: 16px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 56px;
-            overflow: hidden;
-            border: 1px solid var(--border-line);
-        }
-
-        .tag-overlay {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(28, 28, 28, 0.85);
-            backdrop-blur: 4px;
-            color: #FFFFFF;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .veg-indicator {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--brand-green);
-            background: #FFFFFF;
-            padding: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .veg-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--brand-green);
-            border-radius: 50%;
-        }
-
-        .card-details {
-            padding: 14px 4px 4px 4px;
-        }
-
-        .meta-row-one {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .food-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .food-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .meta-row-two {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-bottom: 1px dashed var(--border-line);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-        }
-
-        .delivery-time {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background-color: var(--bg-light);
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        .hygiene-strip {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .hygiene-strip i {
-            color: #5086EC;
-        }
-
-        /* Swiggy Style Dashboard Interactive Checkout Block */
-        .calculator-wrapper {
-            background-color: var(--bg-light);
-            border-top: 1px solid var(--border-line);
-            padding: 64px 24px;
-        }
-
-        .calc-container {
-            max-w: 900px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-line);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 768px) {
-            .calc-container {
-                grid-template-columns: 1.2fr 1fr;
-            }
-        }
-
-        .calc-form-side {
-            padding: 40px;
-        }
-
-        .calc-bill-side {
-            background-color: #FAFAFA;
-            border-left: 1px solid var(--border-line);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .form-heading {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            letter-spacing: -0.2px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 8px;
-        }
-
-        .custom-select {
-            width: 100%;
-            height: 48px;
-            background: #FFFFFF;
-            border: 1px solid var(--border-line);
-            border-radius: 10px;
-            padding: 0 16px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-main);
-            outline: none;
-            cursor: pointer;
-            transition: border-color 0.2s ease;
-            appearance: none;
-
-background-image: url("data:image/svg+xml;utf8,");
-background-repeat: no-repeat;
-background-position: right 16px center;
-background-size: 16px;
-}
-.custom-select:focus {
-border-color: var(--zomato-red);
-}
-/* Order Summary Bill Receipt Micro-design */
-.bill-title {
-font-size: 14px;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 1px;
-color: var(--text-muted);
-margin-bottom: 20px;
-}
-.bill-row {
-display: flex;
-justify-content: space-between;
-font-size: 14px;
-color: var(--text-muted);
-margin-bottom: 12px;
-}
-.bill-total-row {
-display: flex;
-justify-content: space-between;
-font-size: 20px;
-font-weight: 700;
-color: var(--text-main);
-border-top: 1px dashed var(--border-line);
-padding-top: 16px;
-margin-top: 16px;
-}
-.zomato-btn {
-background-color: var(--zomato-red);
-color: #FFFFFF;
-border: none;
-width: 100%;
-height: 52px;
-border-radius: 12px;
-font-size: 16px;
-font-weight: 600;
-cursor: pointer;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-transition: background-color 0.2s ease;
-margin-top: 24px;
-box-shadow: 0 4px 14px rgba(239, 79, 95, 0.25);
-}
-.zomato-btn:hover {
-background-color: #DF3F4F;
-}
-/* App Footer Elements */
-.app-footer {
-background-color: var(--text-main);
-color: #FFFFFF;
-padding: 40px 24px;
-text-align: center;
-font-size: 13px;
-}
-.footer-brand {
-font-size: 20px;
-font-weight: 800;
-margin-bottom: 8px;
-}
-.footer-compliance {
-color: #A0A0A0;
-font-family: monospace;
-font-size: 11px;
-margin-top: 12px;
-}
-
-
-
-
-The Health Box
-Exclusive Daily Dietary Support for TRR Medical College Doctors & Staff.
-FSSAI REGISTERED MOBILE FOOD VENDING UNIT • PRESUMPTIVE TAXATION UNDER SEC 44AD
-
-// Init Lucide Vectors
-lucide.createIcons();
-// Functional Filter System Engine
-function filterMenu(category) {
-// Update active state on pill markers
-const pills = document.querySelectorAll('.filter-pill');
-pills.forEach(pill => pill.classList.remove('active'));
-event.currentTarget.classList.add('active');
-// Hide/Show elements inside the card layout array grid
-const cards = document.querySelectorAll('.food-card');
-cards.forEach(card => {
-if (category === 'all' || card.getAttribute('data-category') === category) {
-card.style.display = 'block';
-} else {
-card.style.display = 'none';
-}
-});
-}
-// Functional Pricing Calculator Invoice Logic
-function runBillEngine() {
-const currentDailyPrice = parseInt(document.getElementById('boxSelect').value);
-const selectedDaysCount = parseInt(document.getElementById('daysSelect').value);
-// Compute operational variables
-const grossWeeklyTotal = currentDailyPrice * selectedDaysCount;
-// Render outputs straight into structural components
-document.getElementById('rateLabel').innerText = currentDailyPrice;
-document.getElementById('totalLabel').innerText = grossWeeklyTotal;
-}
-// Launch initial state calculations on body frame readiness
-runBillEngine();
+    tierSelect.addEventListener('change',updateReceipt);
+    freqSelect.addEventListener('change',updateReceipt);
+    updateReceipt();
+  </script>
+</body>
 </html>
-
-
