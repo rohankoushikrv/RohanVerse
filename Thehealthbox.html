@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Health Box | TRR Medical College Campus Exclusive</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i data-lucide="apple" class="w-6 h-6 text-emerald-600"></i>
+                <span class="font-bold text-xl tracking-tight text-slate-900">The <span class="text-emerald-600">Health</span> Box</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#menu" class="hover:text-emerald-600 transition">Our Menu</a>
+                <a href="#hygiene" class="hover:text-emerald-600 transition">Hygiene Process</a>
+                <a href="#calculator" class="hover:text-emerald-600 transition">Price Calculator</a>
+            </nav>
+            <div>
+                <span class="inline-flex items-center px-3 py-1 text-xs font-semibold text-emerald-800 bg-emerald-100 rounded-full">
+                    <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                    TRR Campus Only
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Fueling Long Shifts With <span class="text-emerald-600">Fresh Nutrition</span>.
+            </h1>
+            <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+                Pre-washed, micro-diced, chilled fruit boxes delivered directly to Dermatology, Radiology, and Campus Hostels before morning rounds.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#calculator" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/20">
+                    Subscribe Now
+                    <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                </a>
+                <a href="#menu" class="inline-flex items-center justify-center px-6 py-3 border border-slate-200 text-base font-medium rounded-xl text-slate-700 bg-white hover:bg-slate-50 transition">
+                    View Tiers
+                </a>
+            </div>
+        </div>
+        <div class="bg-gradient-to-br from-emerald-100 to-teal-50 rounded-3xl p-8 border border-emerald-200/50 flex flex-col justify-center items-center h-80 shadow-inner relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-300/20 rounded-full blur-2xl"></div>
+            <i data-lucide="stethoscope" class="w-20 h-20 text-emerald-600/20 absolute top-6 right-6"></i>
+            <span class="text-5xl">🥗</span>
+            <h3 class="mt-4 font-bold text-xl text-slate-800">Freshness Delivered Daily</h3>
+            <p class="text-sm text-slate-500 mt-1 text-center max-w-xs">Chilled under 10°C directly to your duty rooms or hostel lounge.</p>
+        </div>
+    </section>
+
+    <!-- Menu Tiers Grid -->
+    <section id="menu" class="bg-white border-y border-slate-200 py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900">Tailored Campus Tiers</h2>
+                <p class="mt-2 text-slate-500">Pick the box configuration that fits your appetite and role.</p>
+            </div>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Normal Box -->
+                <div class="border border-slate-200 rounded-2xl p-8 bg-slate-50 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900">Normal Box</h3>
+                                <p class="text-sm text-slate-500 mt-1">Ideal for MBBS Students & Hostellers</p>
+                            </div>
+                            <span class="text-2xl font-black text-slate-900">₹60<span class="text-sm font-normal text-slate-500">/day</span></span>
+                        </div>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Single-compartment clear bowl setup
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> High-yield blend: Watermelon & Papaya
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Crisply chilled seedless grapes
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-200 text-xs text-slate-400 italic">Includes eco-friendly wooden spoon & spice pouch.</div>
+                </div>
+
+                <!-- Deluxe Box -->
+                <div class="border-2 border-emerald-600 rounded-2xl p-8 bg-white relative flex flex-col justify-between shadow-xl shadow-emerald-600/5">
+                    <span class="absolute top-0 right-6 transform -translate-y-1/2 bg-emerald-600 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Premium Selection</span>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900">Deluxe Box</h3>
+                                <p class="text-sm text-emerald-600 font-medium mt-1">Perfect for PGs & Senior Consultants</p>
+                            </div>
+                            <span class="text-2xl font-black text-slate-900">₹80<span class="text-sm font-normal text-slate-500">/day</span></span>
+                        </div>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> 3-Compartment Segregated Bento Tray
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Zero soggy mixing: components stay isolated
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Fresh Pomegranate seeds & sliced Kiwi
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Crisp Apple layers with fresh citrus protective wash
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0"></i> Side compartment of soaked almonds & walnuts
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-200 text-xs text-slate-400 italic">Includes premium packaging & custom nutritional breakdown profiles.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical-Grade Hygiene Workflow Process -->
+    <section id="hygiene" class="py-16 max-w-6xl mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900">Clinically Clean Operational Pipeline</h2>
+            <p class="mt-2 text-slate-500">We maintain protocols designed to satisfy the safety awareness of medical professionals.</p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+            <div class="bg-white p-6 rounded-xl border border-slate-200">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                </div>
+                <h4 class="font-bold text-slate-900">Nightly Mandi Sourcing</h4>
+                <p class="text-xs text-slate-500 mt-2">Whole, raw fruits procured straight from Patancheru market hours after log-out.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200">
