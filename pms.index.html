@@ -3,180 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIBE CHECK | Cycle Tracker</title>
+    <title>CYC_L0G | 6-Month Forecast</title>
     <style>
         :root {
             --neon-purple: #bc13fe;
             --neon-cyan: #0ff;
-            --dark-bg: #0a0a0c;
-            --card-bg: #16161a;
-            --text-main: #e0e0e0;
+            --dark-bg: #050505;
+            --card-bg: #111114;
+            --text-main: #f0f0f0;
         }
 
         body {
             background-color: var(--dark-bg);
             color: var(--text-main);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            overflow-x: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Neon Glow Background */
-        body::before {
-            content: '';
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            background: var(--neon-purple);
-            filter: blur(150px);
-            opacity: 0.15;
-            top: -100px;
-            left: -100px;
-            z-index: -1;
-        }
-
-        .tracker-card {
+        .config-panel {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 25px;
             width: 100%;
-            max-width: 380px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
+            max-width: 450px;
+            border: 1px solid #222;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 1.8rem;
-            letter-spacing: -1px;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-top: 0;
         }
 
-        .input-group {
-            text-align: left;
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-
+        .input-row { display: flex; gap: 15px; margin-top: 15px; }
+        .input-group { flex: 1; text-align: left; }
+        
+        label { font-size: 0.7rem; color: #777; text-transform: uppercase; display: block; margin-bottom: 5px; }
         input {
             width: 100%;
-            background: #23232a;
+            background: #1a1a20;
             border: 1px solid #333;
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 10px;
+            padding: 10px;
             color: white;
-            font-size: 1rem;
-            outline: none;
             box-sizing: border-box;
-            transition: border 0.3s;
         }
 
-        input:focus { border-color: var(--neon-cyan); }
-
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 2rem;
-        }
-
-        .stat-card {
-            background: #1d1d24;
-            padding: 15px;
-            border-radius: 16px;
-            border-bottom: 2px solid var(--neon-purple);
-        }
-
-        .stat-card.cyan { border-bottom-color: var(--neon-cyan); }
-
-        .stat-label { font-size: 0.7rem; color: #aaa; display: block; margin-bottom: 5px; }
-        .stat-value { font-weight: bold; font-size: 1rem; color: #fff; }
-
-        .btn-update {
+        .forecast-container {
             width: 100%;
-            background: linear-gradient(45deg, var(--neon-purple), #8a2be2);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: bold;
-            margin-top: 1.5rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
+
+        .cycle-card {
+            background: #16161a;
+            border-radius: 16px;
+            padding: 15px;
+            border-left: 4px solid var(--neon-purple);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .cycle-card:hover { border-left-color: var(--neon-cyan); background: #1c1c22; }
+
+        .date-main { font-weight: bold; font-size: 1.1rem; }
+        .month-name { color: var(--neon-cyan); font-size: 0.8rem; text-transform: uppercase; }
+        .prediction-pill {
+            background: rgba(188, 19, 254, 0.1);
+            color: var(--neon-purple);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .details-small { font-size: 0.75rem; color: #888; margin-top: 4px; }
     </style>
 </head>
 <body>
 
-<div class="tracker-card">
-    <h1>FL0W_CHECK</h1>
-    
-    <div class="input-group">
-        <label>Last Period Start</label>
-        <input type="date" id="lastDate" value="2026-08-05">
-    </div>
-
-    <div class="input-group">
-        <label>Cycle Length (Days)</label>
-        <input type="number" id="cycleDays" value="28">
-    </div>
-
-    <div class="result-grid">
-        <div class="stat-card">
-            <span class="stat-label">OCTOBER START</span>
-            <div class="stat-value" id="octStart">Oct 29, 2026</div>
+<div class="config-panel">
+    <h1>CYC_L0G FORECAST</h1>
+    <div class="input-row">
+        <div class="input-group">
+            <label>Start of Last Period</label>
+            <input type="date" id="startDate" value="2026-08-05">
         </div>
-        <div class="stat-card cyan">
-            <span class="stat-label">FERTILE START</span>
-            <div class="stat-value" id="octFertile">Oct 08</div>
+        <div class="input-group">
+            <label>Cycle Days</label>
+            <input type="number" id="cycleLength" value="25">
         </div>
     </div>
+</div>
 
-    <button class="btn-update" onclick="updateTracker()">Recalculate Vibe</button>
+<div class="forecast-container" id="forecast">
+    <!-- Forecasted months will appear here -->
 </div>
 
 <script>
-    function updateTracker() {
-        const lastDateInput = document.getElementById('lastDate').value;
-        const cycleLength = parseInt(document.getElementById('cycleDays').value);
-
-        if (!lastDateInput) return;
-
-        let date = new Date(lastDateInput);
+    function generateForecast() {
+        const startInput = document.getElementById('startDate').value;
+        const cycle = parseInt(document.getElementById('cycleLength').value);
+        const container = document.getElementById('forecast');
         
-        // Calculate 2 cycles ahead to get to October
-        // Cycle 1 (September)
-        date.setDate(date.getDate() + cycleLength);
-        // Cycle 2 (October)
-        date.setDate(date.getDate() + cycleLength);
+        if (!startInput) return;
+        container.innerHTML = '';
 
-        // Update October Start
-        const options = { month: 'short', day: '2-digit', year: 'numeric' };
-        document.getElementById('octStart').innerText = date.toLocaleDateString('en-US', options);
+        let currentDate = new Date(startInput);
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
 
-        // Fertile Window is roughly 14 days before start
-        let fertileDate = new Date(date);
-        fertileDate.setDate(date.getDate() - 14 - 7); // Start of window
-        
-        const fertileOptions = { month: 'short', day: '2-digit' };
-        document.getElementById('octFertile').innerText = fertileDate.toLocaleDateString('en-US', fertileOptions);
+        for (let i = 0; i < 6; i++) {
+            // Calculate next period start (official medical logic: start to start)
+            currentDate.setDate(currentDate.getDate() + cycle);
+            
+            // Calculate Ovulation (approx 14 days before next period)
+            let ovulation = new Date(currentDate);
+            ovulation.setDate(currentDate.getDate() - 14);
+
+            const card = document.createElement('div');
+            card.className = 'cycle-card';
+            card.innerHTML = `
+                <div>
+                    <div class="month-name">${currentDate.toLocaleString('en-US', {month: 'long'})}</div>
+                    <div class="date-main">Starts ${currentDate.toLocaleDateString('en-US', options)}</div>
+                    <div class="details-small">Predicted Ovulation: ${ovulation.toLocaleDateString('en-US', {day: 'numeric', month: 'short'})}</div>
+                </div>
+                <div class="prediction-pill">PREDICTED</div>
+            `;
+            container.appendChild(card);
+        }
     }
+
+    // Auto-run on change
+    document.getElementById('startDate').addEventListener('change', generateForecast);
+    document.getElementById('cycleLength').addEventListener('input', generateForecast);
+    
+    // Initial load
+    generateForecast();
 </script>
 
 </body>
