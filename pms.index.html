@@ -23,13 +23,6 @@
             flex-direction: column;
             align-items: center;
         }
-        .made-with-love {
-    font-size: 0.85rem;
-    margin-top: 8px;
-    letter-spacing: 0.5px;
-    opacity: 0.9;
-    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3); /* Subtle romantic glow */
-}
 
 
         .config-panel {
@@ -121,12 +114,6 @@
     <!-- Forecasted months will appear here -->
 </div>
 
-    <div class="footer-bottom">
-      <p>&copy; 2026 <a href="https://rohankoushikrv.github.io/RohanVerse/" class="rohan-koushik-gajulapalle">Rohan Koushik Gajulapalle</a>. All rights reserved.</p>
-      <p>Powered by <a href="https://rohankoushikrv.github.io/RohanGPT/" class="rohan-gpt-link">RohanGPT</a></p>
-      <p class="made-with-love">Made with love for Sai Satvika ❤️</p>
-    </div>
-  </footer>
 
 <script>
     function generateForecast() {
@@ -169,6 +156,98 @@
     // Initial load
     generateForecast();
 </script>
+<!-- Replace your current <footer> block with this -->
+<footer class="cyber-footer">
+    <div class="footer-content">
+        <p class="copyright">
+            &copy; 2026 <a href="https://github.io" class="rohan-link">Rohan Koushik Gajulapalle</a>. All rights reserved.
+        </p>
+        <p class="powered-by">
+            Powered by <a href="https://github.io" class="gpt-link">RohanGPT</a>
+        </p>
+        <div class="love-note">
+            Made with love for <span class="highlight">Sai Satvika</span> <span class="heart">❤️</span>
+        </div>
+    </div>
+</footer>
 
+<style>
+    /* Add this to your existing CSS styles */
+    .cyber-footer {
+        width: 100%;
+        margin-top: auto;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #050505;
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .footer-content {
+        max-width: 450px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* Uniform spacing between elements */
+    }
+
+    .cyber-footer p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #77777e;
+        letter-spacing: 0.5px;
+    }
+
+    /* Fixed the dark blue links so they pop out */
+    .cyber-footer a {
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .rohan-link {
+        color: #00ffff !important; /* Cyber Cyan */
+    }
+
+    .gpt-link {
+        color: #bc13fe !important; /* Neon Purple */
+    }
+
+    .cyber-footer a:hover {
+        filter: brightness(1.2);
+    }
+
+    /* Upgraded Gen Z Love Note with dynamic glow effect */
+    .love-note {
+        font-size: 0.9rem;
+        color: #f0f0f0;
+        margin-top: 8px;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    .love-note .highlight {
+        background: linear-gradient(45deg, #ff007f, #bc13fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+
+    .love-note .heart {
+        display: inline-block;
+        animation: pulse 1.5s infinite;
+        filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.6));
+    }
+
+    /* Subtle pulse animation for the heart icon */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+</style>
 </body>
 </html>
