@@ -3,94 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cycle Tracker</title>
+    <title>VIBE CHECK | Cycle Tracker</title>
     <style>
         :root {
-            --primary: #ff8fa3;
-            --bg: #fff5f6;
-            --text: #4a4a4a;
-            --card: #ffffff;
+            --neon-purple: #bc13fe;
+            --neon-cyan: #0ff;
+            --dark-bg: #0a0a0c;
+            --card-bg: #16161a;
+            --text-main: #e0e0e0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: center;
-            padding: 20px;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        .container {
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(255, 143, 163, 0.2);
+        /* Neon Glow Background */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: var(--neon-purple);
+            filter: blur(150px);
+            opacity: 0.15;
+            top: -100px;
+            left: -100px;
+            z-index: -1;
+        }
+
+        .tracker-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
             width: 100%;
-            max-width: 400px;
-            text-align: center;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
         }
 
-        h1 { color: var(--primary); margin-bottom: 0.5rem; }
-        p { font-size: 0.9rem; color: #888; }
+        h1 {
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .date-display {
-            background: var(--bg);
-            margin: 20px 0;
+        .input-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            background: #23232a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus { border-color: var(--neon-cyan); }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: #1d1d24;
             padding: 15px;
-            border-radius: 15px;
-            border: 2px dashed var(--primary);
+            border-radius: 16px;
+            border-bottom: 2px solid var(--neon-purple);
         }
 
-        .date-label { font-weight: bold; display: block; margin-bottom: 5px; }
-        .date-value { font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+        .stat-card.cyan { border-bottom-color: var(--neon-cyan); }
 
-        .info-box {
-            background: #fff0f3;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 0.85rem;
-        }
+        .stat-label { font-size: 0.7rem; color: #aaa; display: block; margin-bottom: 5px; }
+        .stat-value { font-weight: bold; font-size: 1rem; color: #fff; }
 
-        button {
-            background: var(--primary);
+        .btn-update {
+            width: 100%;
+            background: linear-gradient(45deg, var(--neon-purple), #8a2be2);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 1rem;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: bold;
+            margin-top: 1.5rem;
             cursor: pointer;
-            transition: transform 0.2s;
-            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        button:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Cycle Tracker</h1>
-    <p>Tracking for: <strong>October 2026</strong></p>
-
-    <div class="date-display">
-        <span class="date-label">Estimated Start Date</span>
-        <div class="date-value" id="startDate">Oct 29, 2026</div>
+<div class="tracker-card">
+    <h1>FL0W_CHECK</h1>
+    
+    <div class="input-group">
+        <label>Last Period Start</label>
+        <input type="date" id="lastDate" value="2026-08-05">
     </div>
 
-    <div class="date-display">
-        <span class="date-label">Fertile Window</span>
-        <div class="date-value" id="fertileWindow">Oct 08 - Oct 13</div>
+    <div class="input-group">
+        <label>Cycle Length (Days)</label>
+        <input type="number" id="cycleDays" value="28">
     </div>
 
-    <div class="info-box">
-        Calculation based on the August 5th start date and a standard 28-day cycle.
+    <div class="result-grid">
+        <div class="stat-card">
+            <span class="stat-label">OCTOBER START</span>
+            <div class="stat-value" id="octStart">Oct 29, 2026</div>
+        </div>
+        <div class="stat-card cyan">
+            <span class="stat-label">FERTILE START</span>
+            <div class="stat-value" id="octFertile">Oct 08</div>
+        </div>
     </div>
 
-    <button onclick="alert('This is a static version. You can update the JS to make it interactive!')">Refresh Data</button>
+    <button class="btn-update" onclick="updateTracker()">Recalculate Vibe</button>
 </div>
+
+<script>
+    function updateTracker() {
+        const lastDateInput = document.getElementById('lastDate').value;
+        const cycleLength = parseInt(document.getElementById('cycleDays').value);
+
+        if (!lastDateInput) return;
+
+        let date = new Date(lastDateInput);
+        
+        // Calculate 2 cycles ahead to get to October
+        // Cycle 1 (September)
+        date.setDate(date.getDate() + cycleLength);
+        // Cycle 2 (October)
+        date.setDate(date.getDate() + cycleLength);
+
+        // Update October Start
+        const options = { month: 'short', day: '2-digit', year: 'numeric' };
+        document.getElementById('octStart').innerText = date.toLocaleDateString('en-US', options);
+
+        // Fertile Window is roughly 14 days before start
+        let fertileDate = new Date(date);
+        fertileDate.setDate(date.getDate() - 14 - 7); // Start of window
+        
+        const fertileOptions = { month: 'short', day: '2-digit' };
+        document.getElementById('octFertile').innerText = fertileDate.toLocaleDateString('en-US', fertileOptions);
+    }
+</script>
 
 </body>
 </html>
