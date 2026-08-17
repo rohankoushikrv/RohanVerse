@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycle Tracker</title>
+    <style>
+        :root {
+            --primary: #ff8fa3;
+            --bg: #fff5f6;
+            --text: #4a4a4a;
+            --card: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 143, 163, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        p { font-size: 0.9rem; color: #888; }
+
+        .date-display {
+            background: var(--bg);
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px dashed var(--primary);
+        }
+
+        .date-label { font-weight: bold; display: block; margin-bottom: 5px; }
+        .date-value { font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+
+        .info-box {
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cycle Tracker</h1>
+    <p>Tracking for: <strong>October 2026</strong></p>
+
+    <div class="date-display">
+        <span class="date-label">Estimated Start Date</span>
+        <div class="date-value" id="startDate">Oct 29, 2026</div>
+    </div>
+
+    <div class="date-display">
+        <span class="date-label">Fertile Window</span>
+        <div class="date-value" id="fertileWindow">Oct 08 - Oct 13</div>
+    </div>
+
+    <div class="info-box">
+        Calculation based on the August 5th start date and a standard 28-day cycle.
+    </div>
+
+    <button onclick="alert('This is a static version. You can update the JS to make it interactive!')">Refresh Data</button>
+</div>
+
+</body>
+</html>
