@@ -1,0 +1,111 @@
+<html>
+<title> agent</title>
+<body> tap the button to chat with RohanGPT.
+
+<!-- Floating AI Chat Widget Container -->
+<div id="ai-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: sans-serif;">
+    <!-- Chat Toggle Button -->
+    <button id="chat-toggle" style="background: #111; color: #fff; border: 1px solid #333; padding: 12px 18px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5); font-weight: 600;">
+        🤖 Chat with Rohan AI
+    </button>
+
+    <!-- Chat Window (Hidden by Default) -->
+    <div id="chat-window" style="display: none; width: 350px; height: 450px; background: #121212; border: 1px solid #2d2d2d; border-radius: 12px; flex-direction: column; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.6); margin-bottom: 10px;">
+        <!-- Header -->
+        <div style="background: #1a1a1a; padding: 15px; border-bottom: 1px solid #2d2d2d; color: #fff; font-weight: bold; display: flex; justify-content: space-between;">
+            <span>RohanGPT Portal</span>
+            <span id="close-chat" style="cursor: pointer; opacity: 0.6;">✕</span>
+        </div>
+        <!-- Messages Area -->
+        <div id="chat-logs" style="flex: 1; padding: 15px; overflow-y: auto; color: #e0e0e0; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #222; padding: 8px 12px; border-radius: 8px; align-self: flex-start; max-width: 80%;">
+                Hi! Ask me anything about Rohan's experience with Amazon Connect, Bedrock, or Copilot Studio.
+            </div>
+        </div>
+        <!-- Input Panel -->
+        <div style="padding: 10px; border-top: 1px solid #2d2d2d; background: #1a1a1a; display: flex; gap: 8px;">
+            <input type="text" id="user-input" placeholder="Type a question..." style="flex: 1; background: #262626; border: 1px solid #3a3a3a; color: #fff; padding: 8px 12px; border-radius: 6px; outline: none;">
+            <button id="send-btn" style="background: #007acc; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const MAKE_WEBHOOK_URL = 'YOUR_MAKE_WEBHOOK_URL_HERE'; // Replace with your actual Make webhook URL
+    
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const closeChat = document.getElementById('close-chat');
+    const sendBtn = document.getElementById('send-btn');
+    const userInput = document.getElementById('user-input');
+    const chatLogs = document.getElementById('chat-logs');
+
+    // UI Toggle Logic
+    chatToggle.addEventListener('click', () => {
+        chatWindow.style.display = 'flex';
+        chatToggle.style.display = 'none';
+    });
+    closeChat.addEventListener('click', () => {
+        chatWindow.style.display = 'none';
+        chatToggle.style.display = 'block';
+    });
+
+    // Append Message to UI
+    function appendMessage(text, isUser) {
+        const msg = document.createElement('div');
+        msg.innerText = text;
+        msg.style.padding = '8px 12px';
+        msg.style.borderRadius = '8px';
+        msg.style.maxWidth = '80%';
+        msg.style.lineHeight = '1.4';
+        
+        if (isUser) {
+            msg.style.background = '#007acc';
+            msg.style.color = '#fff';
+            msg.style.alignSelf = 'flex-end';
+        } else {
+            msg.style.background = '#222';
+            msg.style.color = '#e0e0e0';
+            msg.style.alignSelf = 'flex-start';
+        }
+        chatLogs.appendChild(msg);
+        chatLogs.scrollTop = chatLogs.scrollHeight;
+    }
+
+    // Communication Engine with Make Webhook
+    async function handleSend() {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        appendMessage(text, true);
+        userInput.value = '';
+
+        // Add a temporary loading anchor
+        const typingIndicator = document.createElement('div');
+        typingIndicator.innerText = 'Thinking...';
+        typingIndicator.style.color = '#777';
+        typingIndicator.style.fontSize = '12px';
+        typingIndicator.style.alignSelf = 'flex-start';
+        chatLogs.appendChild(typingIndicator);
+
+        try {
+            const response = await fetch(MAKE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: text })
+            });
+            
+            const aiResponseText = await response.text();
+            chatLogs.removeChild(typingIndicator);
+            appendMessage(aiResponseText, false);
+        } catch (error) {
+            chatLogs.removeChild(typingIndicator);
+            appendMessage('Connection error. Please try again later.', false);
+        }
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+</script>
+</body>
+</html>
