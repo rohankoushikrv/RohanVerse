@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="description" content="A private, local-first expense splitter for your Goa getaway.">
+  <title>Rohan Trip Calculator | Goa Getaway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand-lockup">
+        <div class="brand-mark">GG</div>
+        <div><strong>Rohan Trip Calculator</strong><span>Shared trip ledger</span></div>
+      </div>
+      <div class="trip-chip"><span class="status-dot"></span><span id="saveStatus">Saved locally</span></div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">+</span>Overview</button>
+        <button class="nav-item" data-view="expenses"><span class="nav-icon">=</span>Expenses <span class="nav-count" id="expenseCount">0</span></button>
+        <button class="nav-item" data-view="balances"><span class="nav-icon">~</span>Balances</button>
+        <button class="nav-item" data-view="calculator"><span class="nav-icon">#</span>Calculator</button>
+      </nav>
+      <div class="sidebar-foot">
+        <button class="nav-item" data-view="settings"><span class="nav-icon">*</span>Trip settings</button>
+        <p>Private by design.<br>Your data stays in this browser.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><div class="brand-mark">GG</div><strong>Rohan Trip Calculator</strong></div>
+        <div class="topbar-actions">
+          <span class="last-saved" id="lastSaved">Ready for your first expense</span>
+          <button class="icon-button" id="exportButton" title="Export trip backup" aria-label="Export trip backup">^</button>
+          <button class="avatar" id="profileButton" title="Open trip settings" aria-label="Open trip settings">R</button>
+        </div>
+      </header>
+
+      <div class="view-container">
+        <section class="view active" id="view-dashboard" data-view-panel="dashboard">
+          <div class="page-heading reveal"><div><p class="eyebrow">TUESDAY, 08 SEP 2026</p><h1>Your trip, at a glance.</h1><p class="heading-copy">A calm place to keep the numbers honest and the memories uncomplicated.</p></div><button class="primary-button" id="addExpenseButton"><span>+</span> Add expense</button></div>
+          <div class="metric-grid reveal delay-1">
+            <article class="metric-card featured"><div class="metric-label">Total spent <span class="metric-dot"></span></div><div class="metric-value" id="totalSpent">Rs 0</div><div class="metric-foot"><span id="expenseSummary">No expenses yet</span><span class="sparkline" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></article>
+            <article class="metric-card"><div class="metric-label">Your balance</div><div class="metric-value positive" id="yourBalance">Rs 0</div><div class="metric-foot" id="yourBalanceLabel">You are settled</div></article>
+            <article class="metric-card"><div class="metric-label">Per person average</div><div class="metric-value" id="averageSpent">Rs 0</div><div class="metric-foot">Across <span id="peopleCount">4</span> travelers</div></article>
+            <article class="metric-card"><div class="metric-label">Open settlements</div><div class="metric-value" id="openSettlements">0</div><div class="metric-foot" id="settlementLabel">Everyone is settled</div></article>
+          </div>
+          <div class="dashboard-grid reveal delay-2">
+            <section class="panel recent-panel"><div class="panel-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Recent expenses</h2></div><button class="text-button" data-view-target="expenses">View all <span>-></span></button></div><div id="recentExpenses" class="expense-list"></div></section>
+            <section class="panel settlement-panel"><div class="panel-heading"><div><p class="eyebrow">SETTLE UP</p><h2>Suggested transfers</h2></div><button class="icon-button small" data-view-target="balances" title="View balances">-></button></div><div id="dashboardSettlements"></div></section>
+          </div>
+          <section class="insight-strip reveal delay-3"><div class="insight-icon">i</div><div><strong id="insightTitle">Your trip ledger is ready.</strong><p id="insightText">Add your first shared expense and the math will take care of itself.</p></div><button class="ghost-button" data-view-target="calculator">Open calculator</button></section>
+        </section>
+
+        <section class="view" id="view-expenses" data-view-panel="expenses">
+          <div class="page-heading"><div><p class="eyebrow">THE LEDGER</p><h1>Every rupee, accounted for.</h1><p class="heading-copy">Track the small stops and the big nights in one clear timeline.</p></div><button class="primary-button" id="addExpenseButton2"><span>+</span> Add expense</button></div>
+          <section class="panel ledger-panel"><div class="toolbar"><div class="search-box"><span>/</span><input id="expenseSearch" type="search" placeholder="Search expenses..."></div><select id="categoryFilter" aria-label="Filter by category"><option value="all">All categories</option><option>Accommodation</option><option>Travel</option><option>Food</option><option>Drinks</option><option>Activities</option><option>Shopping</option><option>Other</option></select><select id="sortExpenses" aria-label="Sort expenses"><option value="newest">Newest first</option><option value="highest">Highest amount</option><option value="oldest">Oldest first</option></select></div><div id="allExpenses" class="expense-list full-list"></div></section>
+        </section>
+
+        <section class="view" id="view-balances" data-view-panel="balances">
+          <div class="page-heading"><div><p class="eyebrow">THE BOTTOM LINE</p><h1>Make the final round easy.</h1><p class="heading-copy">One clean view of who paid, who owes, and what to transfer.</p></div><button class="secondary-button" id="copySettlement">Copy settlement</button></div>
+          <div class="balance-layout"><section class="panel balances-panel"><div class="panel-heading"><div><p class="eyebrow">PARTICIPANTS</p><h2>Where everyone stands</h2></div><span class="tiny-label" id="balanceTotal">Rs 0 total</span></div><div id="balanceRows"></div></section><section class="panel transfer-panel"><div class="panel-heading"><div><p class="eyebrow">LOWEST FRICTION</p><h2>Suggested transfers</h2></div><span class="settled-badge">Optimized</span></div><div id="transfers"></div><div class="panel-note">Transfers are simplified to keep the number of payments low. You can settle in any order.</div></section></div>
+        </section>
+
+        <section class="view" id="view-calculator" data-view-panel="calculator">
+          <div class="page-heading"><div><p class="eyebrow">QUICK MATH</p><h1>Do the math, then move on.</h1><p class="heading-copy">A safe little scratchpad for quantities, averages, and split checks.</p></div></div>
+          <div class="calculator-layout"><section class="calculator-card"><div class="calc-display"><span id="calcExpression">0</span><strong id="calcResult">0</strong></div><div class="calc-keys"><button data-calc="clear" class="calc-muted">AC</button><button data-calc="backspace" class="calc-muted">DEL</button><button data-calc="operator">%</button><button data-calc="operator">/</button><button data-calc="number">7</button><button data-calc="number">8</button><button data-calc="number">9</button><button data-calc="operator">*</button><button data-calc="number">4</button><button data-calc="number">5</button><button data-calc="number">6</button><button data-calc="operator">-</button><button data-calc="number">1</button><button data-calc="number">2</button><button data-calc="number">3</button><button data-calc="operator">+</button><button data-calc="number" class="wide">0</button><button data-calc="number">.</button><button data-calc="equals" class="calc-equals">=</button></div></section><section class="panel calculator-help"><p class="eyebrow">USEFUL SHORTCUTS</p><h2>Travel math, ready.</h2><div class="shortcut-list"><button data-formula="(1000 + 800 + 650) / 3"><span>Average three costs</span><code>(1000 + 800 + 650) / 3</code></button><button data-formula="4 * 250"><span>Four equal shares</span><code>4 * 250</code></button><button data-formula="2400 * 15 / 100"><span>15% service charge</span><code>2400 * 15 / 100</code></button></div></section></div>
+        </section>
+
+        <section class="view" id="view-settings" data-view-panel="settings">
+          <div class="page-heading"><div><p class="eyebrow">YOUR TRIP</p><h1>Keep the setup yours.</h1><p class="heading-copy">Change the trip details or bring your ledger to another device.</p></div></div>
+          <div class="settings-grid"><section class="panel settings-panel"><div class="panel-heading"><div><p class="eyebrow">TRIP DETAILS</p><h2>About this getaway</h2></div></div><form id="tripForm" class="form-stack"><label>Trip name<input id="tripName" required maxlength="40"></label><div class="form-row"><label>Currency<select id="currency"><option value="INR">Indian Rupee (Rs)</option><option value="USD">US Dollar ($)</option><option value="EUR">Euro (EUR)</option></select></label><label>Budget<input id="budget" type="number" min="0" step="0.01" placeholder="Optional"></label></div><button class="primary-button" type="submit">Save trip details</button></form></section><section class="panel settings-panel"><div class="panel-heading"><div><p class="eyebrow">TRAVELERS</p><h2>Who's coming?</h2></div><button class="text-button" id="addPerson">+ Add person</button></div><div id="peopleList" class="people-list"></div></section><section class="panel settings-panel"><div class="panel-heading"><div><p class="eyebrow">BACKUP & PRIVACY</p><h2>Your local ledger</h2></div><span class="secure-badge">Local only</span></div><p class="settings-copy">Your trip is stored in this browser and never uploaded. Export a backup before switching devices or clearing browser data.</p><div class="settings-actions"><button class="secondary-button" id="exportButton2">Export JSON</button><button class="secondary-button" id="exportCsv">Export CSV</button><button class="secondary-button" id="exportExcel">Export Excel</button><button class="secondary-button" id="importButton">Import JSON</button><input type="file" id="importFile" accept="application/json" hidden></div><button class="danger-button" id="resetTrip">Reset trip data</button></section></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-view="dashboard"><span>+</span>Home</button><button data-view="expenses"><span>=</span>Expenses</button><button data-view="balances"><span>~</span>Balances</button><button data-view="settings"><span>*</span>Settings</button></nav>
+
+  <div class="modal-backdrop" id="expenseModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="expenseModalTitle"><div class="modal-heading"><div><p class="eyebrow">NEW ENTRY</p><h2 id="expenseModalTitle">Add an expense</h2></div><button class="close-button" id="closeExpenseModal" aria-label="Close expense form">x</button></div><form id="expenseForm"><input id="expenseId" type="hidden"><div class="form-stack"><label>What was it for?<input id="expenseDescription" required maxlength="80" placeholder="e.g. Sunset dinner"></label><div class="form-row"><label>Amount<div class="amount-input"><span id="currencyPrefix">Rs</span><input id="expenseAmount" required type="number" min="0.01" step="0.01" placeholder="0.00"></div></label><label>Date<input id="expenseDate" type="date" required></label></div><label>Category<select id="expenseCategory"><option>Food</option><option>Accommodation</option><option>Travel</option><option>Drinks</option><option>Activities</option><option>Shopping</option><option>Other</option></select></label><fieldset><legend>Paid by</legend><div id="payerOptions" class="choice-grid"></div></fieldset><fieldset><legend>Split between</legend><div class="split-tabs"><button type="button" class="split-tab active" data-split="equal">Equal</button><button type="button" class="split-tab" data-split="exact">Exact</button><button type="button" class="split-tab" data-split="percent">Percent</button><button type="button" class="split-tab" data-split="shares">Shares</button></div><div id="splitOptions" class="split-options"></div><div class="split-total" id="splitTotal">Each person gets an equal share.</div></fieldset><label>Note <span class="optional">Optional</span><textarea id="expenseNote" rows="2" maxlength="160" placeholder="Any useful context..."></textarea></label></div><div class="modal-actions"><button type="button" class="secondary-button" id="cancelExpense">Cancel</button><button type="submit" class="primary-button">Save expense</button></div></form></section></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
