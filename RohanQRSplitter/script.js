@@ -1,7 +1,7 @@
 const form = document.getElementById('split-form');
 const totalAmountInput = document.getElementById('total-amount');
 const splitCountInput = document.getElementById('split-count');
-const perPersonAmountInput = document.getElementById('per-person-amount');
+const maxUpiAmountInput = document.getElementById('max-upi-amount');
 const manualSplitToggle = document.getElementById('manual-split-toggle');
 const merchantUpiInput = document.getElementById('merchant-upi');
 const merchantNameInput = document.getElementById('merchant-name');
@@ -26,7 +26,7 @@ function saveState() {
   const state = {
     totalAmount: totalAmountInput.value,
     splitCount: splitCountInput.value,
-    perPersonAmount: perPersonAmountInput.value,
+    maxUpiAmount: maxUpiAmountInput.value,
     manualSplitToggle: manualSplitToggle.checked,
     merchantUpi: merchantUpiInput.value,
     merchantName: merchantNameInput.value,
@@ -47,7 +47,7 @@ function loadState() {
     const state = JSON.parse(saved);
     totalAmountInput.value = state.totalAmount || '4500';
     splitCountInput.value = state.splitCount || '3';
-    perPersonAmountInput.value = state.perPersonAmount || '1500';
+    maxUpiAmountInput.value = state.maxUpiAmount || '2000';
     manualSplitToggle.checked = Boolean(state.manualSplitToggle);
     merchantUpiInput.value = state.merchantUpi || 'merchant@upi';
     merchantNameInput.value = state.merchantName || 'Rohan Store';
@@ -94,29 +94,29 @@ function calculateSplitAmounts(totalAmount, splitCount) {
   return splits;
 }
 
-function calculateAutoSplitCount(totalAmount, perPersonAmount) {
+function calculateAutoSplitCount(totalAmount, maxUpiAmount) {
   const safeTotal = Number(totalAmount || 0);
-  const safePerPerson = Number(perPersonAmount || 0);
+  const safeMaxUpiAmount = Number(maxUpiAmount || 0);
 
   if (!Number.isFinite(safeTotal) || safeTotal <= 0) {
     return 1;
   }
 
-  if (!Number.isFinite(safePerPerson) || safePerPerson <= 0) {
+  if (!Number.isFinite(safeMaxUpiAmount) || safeMaxUpiAmount <= 0) {
     return 1;
   }
 
-  const count = Math.max(1, Math.floor(safeTotal / safePerPerson));
+  const count = Math.max(1, Math.ceil(safeTotal / safeMaxUpiAmount));
   return count;
 }
 
-function resolveSplitCount(totalAmount, perPersonAmount, manualMode) {
+function resolveSplitCount(totalAmount, maxUpiAmount, manualMode) {
   if (manualMode) {
     const value = Number(splitCountInput.value || 1);
     return Math.max(1, Math.floor(value));
   }
 
-  return calculateAutoSplitCount(totalAmount, perPersonAmount);
+  return calculateAutoSplitCount(totalAmount, maxUpiAmount);
 }
 
 function renderPlaceholderQr(canvas, label) {
@@ -248,9 +248,9 @@ function handleSubmit(event) {
   event.preventDefault();
 
   const totalAmount = Number(totalAmountInput.value);
-  const perPersonAmount = Number(perPersonAmountInput.value || 0);
+  const maxUpiAmount = Number(maxUpiAmountInput.value || 0);
   const manualMode = manualSplitToggle.checked;
-  const splitCount = resolveSplitCount(totalAmount, perPersonAmount, manualMode);
+  const splitCount = resolveSplitCount(totalAmount, maxUpiAmount, manualMode);
   const merchantUpi = merchantUpiInput.value.trim();
   const merchantName = merchantNameInput.value.trim() || 'Merchant';
   const note = noteInput.value.trim() || 'Bill split';
@@ -261,9 +261,9 @@ function handleSubmit(event) {
     return;
   }
 
-  if (!manualMode && (!Number.isFinite(perPersonAmount) || perPersonAmount <= 0)) {
-    resultStatus.textContent = 'Enter per-person amount';
-    resultsContainer.innerHTML = '<div class="empty-state">Enter a per-person amount or enable manual split count to continue.</div>';
+  if (!manualMode && (!Number.isFinite(maxUpiAmount) || maxUpiAmount <= 0)) {
+    resultStatus.textContent = 'Enter max UPI amount';
+    resultsContainer.innerHTML = '<div class="empty-state">Enter a max UPI amount or enable manual split count to continue.</div>';
     return;
   }
 
@@ -306,7 +306,7 @@ function handleSubmit(event) {
 function resetForm() {
   totalAmountInput.value = '4500';
   splitCountInput.value = '3';
-  perPersonAmountInput.value = '1500';
+  maxUpiAmountInput.value = '2000';
   manualSplitToggle.checked = false;
   merchantUpiInput.value = 'merchant@upi';
   merchantNameInput.value = 'Rohan Store';
@@ -333,5 +333,5 @@ qrScript.onload = () => {
 document.body.appendChild(qrScript);
 
 loadState();
-const initialAutoCount = calculateAutoSplitCount(Number(totalAmountInput.value || 0), Number(perPersonAmountInput.value || 0));
+const initialAutoCount = calculateAutoSplitCount(Number(totalAmountInput.value || 0), Number(maxUpiAmountInput.value || 0));
 updateSummary(Number(totalAmountInput.value || 0), Number(manualSplitToggle.checked ? splitCountInput.value || 1 : initialAutoCount), Number(totalAmountInput.value || 0) / Math.max(1, Number(manualSplitToggle.checked ? splitCountInput.value || 1 : initialAutoCount)));

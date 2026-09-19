@@ -124,6 +124,40 @@ h1 {
   transform: translateY(-1px);
 }
 
+.manual-toggle-wrap {
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.manual-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.72);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.manual-toggle input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.manual-toggle-wrap small {
+  color: var(--muted);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
